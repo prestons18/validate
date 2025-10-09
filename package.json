@@ -1,6 +1,6 @@
 {
-  "name": "validate",
-  "version": "1.0.0",
+  "name": "@prestonarnold/validator",
+  "version": "0.0.0",
   "description": "A lightweight, type-safe validation library for TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
