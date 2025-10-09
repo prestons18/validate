@@ -1,30 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2024",
-    "module": "ES2022",
-    "lib": ["ES6", "ES2024", "ESNext"],
-    "skipLibCheck": true,
-    "sourceMap": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
-    "moduleResolution": "node",
-    "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
     "declaration": true,
     "declarationMap": true,
+    "strict": true,
+    "verbatimModuleSyntax": true
   },
-  "exclude": ["node_modules", "examples"],
-  "include": ["./src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "examples"]
 }
