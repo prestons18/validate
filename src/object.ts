@@ -1,5 +1,5 @@
-import { Infer } from "src";
-import { BaseSchema } from "./base";
+import type { Infer } from "./index.js";
+import { BaseSchema } from "./base.js";
 
 /**
  * Schema for validating objects with a specific shape.

@@ -1,7 +1,7 @@
-import { StringSchema } from "./string";
-import { NumberSchema } from "./number";
-import { ObjectSchema } from "./object";
-import { BaseSchema } from "./base";
+import { StringSchema } from "./string.js";
+import { NumberSchema } from "./number.js";
+import { ObjectSchema } from "./object.js";
+import { BaseSchema } from "./base.js";
 
 /**
  * Factory functions for creating validation schemas.
@@ -33,6 +33,6 @@ export type Infer<S> =
   ? U
   : never;
 
-export { StringSchema } from "./string";
-export { NumberSchema } from "./number";
-export { ObjectSchema } from "./object";
+export { StringSchema } from "./string.js";
+export { NumberSchema } from "./number.js";
+export { ObjectSchema } from "./object.js";

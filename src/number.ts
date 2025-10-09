@@ -1,4 +1,4 @@
-import { BaseSchema } from "./base";
+import { BaseSchema } from "./base.js";
 
 /**
  * Number validation schema.

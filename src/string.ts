@@ -1,4 +1,4 @@
-import { BaseSchema } from "./base";
+import { BaseSchema } from "./base.js";
 
 /**
  * String validation schema.
