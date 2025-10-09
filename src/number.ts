@@ -10,6 +10,7 @@ import { BaseSchema } from "./base.js";
 export class NumberSchema extends BaseSchema<number> {
   private _min?: number;
   private _int?: boolean;
+  private _default?: number;
 
   /**
    * Ensures the number is at least `n`
@@ -27,7 +28,18 @@ export class NumberSchema extends BaseSchema<number> {
     return this;
   }
 
+  /**
+   * Sets a default number used when the input is `undefined`.
+   */
+  default(value: number) {
+    this._default = value;
+    return this;
+  }
+
   parse(value: unknown): { success: true; data: number } | { success: false; errors: string[] } {
+    if (value === undefined && this._default !== undefined) {
+      return { success: true, data: this._default };
+    }
     if (typeof value !== "number") {
       return { success: false, errors: ["Not a number"] };
     }

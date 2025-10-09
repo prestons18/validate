@@ -27,3 +27,12 @@ if (result.success) {
 } else {
     console.error("Validation failed:", result.errors);
 }
+
+// Defaults demonstration
+const userWithDefaults = validate.object({
+    name: validate.string().min(1).default("John"),
+    age: validate.number().min(0).int().default(50),
+});
+
+const withDefaults = userWithDefaults.parse({});
+console.log(withDefaults);
