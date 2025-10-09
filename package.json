@@ -4,14 +4,21 @@
   "description": "A lightweight, type-safe validation library for TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "exit 0"
   },
   "keywords": [
     "validation",
     "type-safe",
     "typescript"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "author": "Preston Arnold",
   "license": "MIT"
