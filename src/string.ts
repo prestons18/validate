@@ -10,6 +10,7 @@ import { BaseSchema } from "./base.js";
 export class StringSchema extends BaseSchema<string> {
   private _min?: number;
   private _default?: string;
+  private _optional: boolean = false;
 
   /**
    * Sets minimum string length
@@ -27,9 +28,20 @@ export class StringSchema extends BaseSchema<string> {
     return this;
   }
 
+  /**
+   * Makes the string optional (allows `undefined`).
+   */
+  optional() {
+    this._optional = true;
+    return this;
+  }
+
   parse(value: unknown): { success: true; data: string } | { success: false; errors: string[] } {
     if (value === undefined && this._default !== undefined) {
       return { success: true, data: this._default };
+    }
+    if (value === undefined && this._optional) {
+      return { success: true, data: undefined as any };
     }
     if (typeof value !== "string") {
       return { success: false, errors: ["Not a string"] };
