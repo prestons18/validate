@@ -11,6 +11,7 @@ export class NumberSchema extends BaseSchema<number> {
   private _min?: number;
   private _int?: boolean;
   private _default?: number;
+  private _optional: boolean = false;
 
   /**
    * Ensures the number is at least `n`
@@ -36,9 +37,20 @@ export class NumberSchema extends BaseSchema<number> {
     return this;
   }
 
+  /**
+   * Makes the number optional (allows `undefined`).
+   */
+  optional() {
+    this._optional = true;
+    return this;
+  }
+
   parse(value: unknown): { success: true; data: number } | { success: false; errors: string[] } {
     if (value === undefined && this._default !== undefined) {
       return { success: true, data: this._default };
+    }
+    if (value === undefined && this._optional) {
+      return { success: true, data: undefined as any };
     }
     if (typeof value !== "number") {
       return { success: false, errors: ["Not a number"] };
