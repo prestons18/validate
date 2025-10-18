@@ -49,6 +49,7 @@ const res = schema.parse({});
 validate.object(shape: Record<string, BaseSchema<any>>): ObjectSchema<Shape>
 validate.string(): StringSchema
 validate.number(): NumberSchema
+```
 
 ## License
 MIT
