@@ -1,3 +1,4 @@
+import type { SchemaType } from "./base.js";
 import { BaseSchema } from "./base.js";
 
 /**
@@ -7,17 +8,26 @@ import { BaseSchema } from "./base.js";
  * const schema = validate.string().min(3);
  * const result = schema.parse("hello");
  */
+export type StringSchemaDef = {
+  type: 'string';
+  min?: number;
+  optional: boolean;
+  nullable: boolean;
+};
+
 export class StringSchema extends BaseSchema<string> {
-  private _min?: number;
+  _def: StringSchemaDef = {
+    type: 'string',
+    optional: false,
+    nullable: false
+  };
   private _default?: string;
-  private _optional: boolean = false;
-  private _nullable: boolean = false;
 
   /**
    * Sets minimum string length
    */
   min(n: number) { 
-    this._min = n; 
+    this._def.min = n; 
     return this; 
   }
 
@@ -33,7 +43,7 @@ export class StringSchema extends BaseSchema<string> {
    * Makes the string optional (allows `undefined`).
    */
   optional() {
-    this._optional = true;
+    this._def.optional = true;
     return this;
   }
 
@@ -41,7 +51,7 @@ export class StringSchema extends BaseSchema<string> {
    * Makes the string nullable (allows `null`).
    */
   nullable() {
-    this._nullable = true;
+    this._def.nullable = true;
     return this;
   }
 
@@ -49,20 +59,22 @@ export class StringSchema extends BaseSchema<string> {
     if (value === undefined && this._default !== undefined) {
       return { success: true, data: this._default };
     }
-    if (value === undefined && this._optional) {
+    if (value === undefined && this._def.optional) {
       return { success: true, data: undefined as any };
     }
-    if (value === null && this._nullable) {
+    if (value === null && this._def.nullable) {
       return { success: true, data: null as any };
     }
     if (typeof value !== "string") {
       return { success: false, errors: ["Not a string"] };
     }
-    
-    if (this._min !== undefined && value.length < this._min) {
-      return { success: false, errors: [`String length < ${this._min}`] };
+
+    const errors: string[] = [];
+
+    if (this._def.min !== undefined && value.length < this._def.min) {
+      errors.push(`String must be at least ${this._def.min} characters`);
     }
     
-    return { success: true, data: value };
+    return errors.length > 0 ? { success: false, errors } : { success: true, data: value };
   }
 }

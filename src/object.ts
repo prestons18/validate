@@ -1,4 +1,5 @@
 import type { Infer } from "./index.js";
+import type { SchemaType } from "./base.js";
 import { BaseSchema } from "./base.js";
 
 /**
@@ -13,8 +14,17 @@ import { BaseSchema } from "./base.js";
 export class ObjectSchema<Shape extends Record<string, BaseSchema<any>>> 
   extends BaseSchema<{ [K in keyof Shape]: Infer<Shape[K]> }> {
   
-  constructor(private shape: Shape) { 
-    super(); 
+  _def: {
+    type: SchemaType;
+    shape: Shape;
+  };
+
+  constructor(shape: Shape) { 
+    super();
+    this._def = {
+      type: 'object',
+      shape
+    };
   }
 
   parse(value: unknown): 
@@ -28,13 +38,13 @@ export class ObjectSchema<Shape extends Record<string, BaseSchema<any>>>
     const errors: string[] = [];
     const data: any = {};
 
-    for (const key in this.shape) {
-      const field = this.shape[key];
+    for (const key in this._def.shape) {
+      const field = this._def.shape[key];
       const val = (value as any)[key];
       const res = field.parse(val);
       
       if (!res.success) {
-        errors.push(...res.errors.map(e => `${key}: ${e}`));
+        errors.push(...res.errors.map((e: string) => `${key}: ${e}`));
       } else {
         data[key] = res.data;
       }
