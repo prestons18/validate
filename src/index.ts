@@ -36,3 +36,14 @@ export type Infer<S> =
 export { StringSchema } from "./string.js";
 export { NumberSchema } from "./number.js";
 export { ObjectSchema } from "./object.js";
+export { BaseSchema } from "./base.js";
+export type { SchemaDef, SchemaType } from "./base.js";
+export type { StringSchemaDef } from "./string.js";
+export type { NumberSchemaDef } from "./number.js";
+
+export {
+  toGraphQLSDL,
+  toGraphQLTypeConfig,
+  schemaDefToGraphQLType,
+  generateGraphQLSchema,
+} from "./graphql.js";
