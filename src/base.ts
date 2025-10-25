@@ -1,7 +1,7 @@
 /**
  * Base class for all schemas
  */
-export type SchemaType = 'string' | 'number' | 'object' | 'unknown';
+export type SchemaType = 'string' | 'number' | 'boolean' | 'enum' | 'array' | 'object' | 'unknown';
 
 export type SchemaDef = {
   type: SchemaType;
